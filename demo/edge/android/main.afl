@@ -1,0 +1,23 @@
+use dep::core::lib::show_screen
+impl dep::core::ui::show_button
+
+fn show_button(label: string, position: string) [
+    desc = [
+        为 core 的显示按钮能力提供 Android/Kotlin 实现。
+        Agent 生成目标工程时，将 core 对该外部能力的调用接到本函数。
+    ]
+    label = [按钮上显示的文字]
+    position = [按钮在页面中的位置描述，空字符串表示页面底部居中]
+] {
+    button = [创建 Android 按钮，文字为 label]
+    if position == "" {
+        [将 button 添加到当前页面的底部居中位置并显示]
+    } else {
+        [按照 position 描述的位置将 button 添加到当前页面并显示]
+    }
+}
+
+fn main() {
+    [准备 Android 页面及用于放置按钮的容器]
+    show_screen()
+}

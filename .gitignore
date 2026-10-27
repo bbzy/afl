@@ -1,0 +1,7 @@
+node_modules/
+/release/
+dist/
+*.tsbuildinfo
+*.vsix
+.DS_Store
+.vscode/

@@ -1,0 +1,5 @@
+[preset.android]
+core = ["core"]
+edge = ["android"]
+
+[project]

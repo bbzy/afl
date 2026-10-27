@@ -1,0 +1,9 @@
+use math::add as local_add
+use dep::core::math::add as core_add
+use features::report::calculate
+
+fn main() {
+    local_total: i32 = local_add(1, 2)
+    core_total: i32 = core_add(3, 4)
+    report_total: i32 = calculate(5, 6)
+}

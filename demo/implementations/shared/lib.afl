@@ -1,0 +1,12 @@
+class Counter [desc = [Accumulate integer increments from an initial value of zero]] {
+    value: i32 = 0 [desc = [Current total]]
+
+    fn add(amount: i32) -> i32 [
+        desc = [Add an increment and return the new total]
+        amount = [Increment to add]
+        return = [New total]
+    ] {
+        self.value = self.value + amount
+        return self.value
+    }
+}

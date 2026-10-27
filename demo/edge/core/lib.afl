@@ -1,0 +1,5 @@
+use ui::show_button
+
+fn show_screen() {
+    show_button("提交", "页面底部居中")
+}

@@ -1,0 +1,2 @@
+struct NativeFrame [desc = [原生帧契约]] {}
+type FrameSource = "camera" | "image" | "video"

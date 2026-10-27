@@ -1,0 +1,8 @@
+fn main() {
+    print_one_line("hello world")
+}
+
+fn print_one_line(text: string) [
+    desc = [打印 text]
+    text = [需要打印的字符串]
+]

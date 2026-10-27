@@ -1,0 +1,5 @@
+[dep]
+core = "../core"
+
+[test]
+crates = ["../tests/android"]

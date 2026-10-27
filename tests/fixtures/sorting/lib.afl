@@ -1,0 +1,15 @@
+struct Effect [desc = [特效信息]] {
+    name: string [desc = [名称]]
+}
+
+fn effect_name(effect: Effect) -> string [
+    effect = [参与排序的特效]
+    return = [名称排序键]
+] {
+    effect.name
+}
+
+fn load_effects() -> items: list<Effect> [items = [按名称升序排列的特效]] {
+    items = [读取特效列表]
+    items.sort_by(effect_name)
+}

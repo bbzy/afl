@@ -1,0 +1,6 @@
+[preset.ohos]
+core = ["core"]
+edge = ["ohos"]
+allow_unsupported = ["core/lib.afl::ControlPanel"]
+
+[project]

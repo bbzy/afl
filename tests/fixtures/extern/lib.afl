@@ -1,0 +1,18 @@
+extern class Button [
+    desc = [由外部 UI 系统提供的按钮]
+] {
+    text: string [
+        desc = [按钮显示的文字]
+    ]
+
+    fn set_text(value: string) [
+        desc = [设置按钮显示的文字]
+        value = [需要显示的文字]
+    ]
+}
+
+extern fn create_button(text: string) -> Button [
+    desc = [创建并返回一个按钮]
+    text = [按钮初始显示的文字]
+    return = [创建的按钮]
+]

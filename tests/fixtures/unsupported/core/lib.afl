@@ -1,0 +1,3 @@
+extern class ControlPanel [desc = [可交互控制面板]] {
+    fn show() [desc = [展示面板]]
+}

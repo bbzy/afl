@@ -1,0 +1,7 @@
+use math::add
+use features::report::calculate
+
+fn main() {
+    total: i32 = add(1, 2)
+    report_total: i32 = calculate(3, 4)
+}

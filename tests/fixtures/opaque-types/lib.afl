@@ -1,0 +1,13 @@
+extern type ThreadIdentity [desc = [目标平台的线程身份，不在 AFL 中暴露成员]]
+
+class Worker [desc = [保留线程身份和完成回调]] {
+    owner: ThreadIdentity? = null [desc = [任务所属线程，尚未启动时为空]]
+    completed: fn(ThreadIdentity)? = null [desc = [任务完成后传递线程身份]]
+}
+
+fn keep_identity(identity: ThreadIdentity) -> ThreadIdentity [
+    identity = [已有线程身份]
+    return = [同一线程身份]
+] {
+    identity
+}

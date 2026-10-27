@@ -1,0 +1,29 @@
+use defaults::default_retries as retries
+use defaults::notify
+
+class Options [desc = [可以全部使用默认值的运行选项]] {
+    timeout_us: i64 = 10000 [desc = [超时时间，单位为微秒]]
+    retries: i32 = retries() [desc = [失败后的重试次数]]
+    enabled: bool = true [desc = [是否启用处理]]
+    message: string? = null [desc = [可选的提示文字]]
+    labels: set<string> = {"default"} [desc = [标签集合]]
+    weights: map<string, list<i32>> = {"primary": {1, 2}} [
+        desc = [每个分组对应的权重列表]
+    ]
+    on_done: fn() = notify [desc = [处理完成时触发的回调]]
+    context: any = [创建本次处理需要的上下文] [
+        desc = [由 Agent 根据目标工程定义的上下文]
+    ]
+}
+
+class Config [desc = [包含必填名称和可选运行选项的配置]] {
+    name: string [desc = [调用者必须提供的配置名称]]
+    options: Options = {} [desc = [省略时使用默认运行选项]]
+}
+
+fn configure() {
+    standard: Options = {}
+    custom: Options = {timeout_us: 20000}
+    config: Config = {name: "preview"}
+    config.options.on_done()
+}

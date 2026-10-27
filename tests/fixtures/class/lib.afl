@@ -1,0 +1,36 @@
+class Adder [
+    desc = [基于一个基础值进行加法]
+] {
+    base: i32 [
+        desc = [参与加法的基础值]
+    ]
+
+    fn add(value: i32) -> i32 [
+        desc = [
+            将输入值与基础值相加。
+            把计算结果交给调用方。
+        ]
+        value = [本次相加的值]
+        return = [基础值与输入值之和]
+    ] {
+        self.base + value
+    }
+}
+
+fn prepare(base: i32) -> adder: Adder [
+    base = [新对象使用的基础值]
+    adder = [以指定基础值创建的加法对象]
+] {
+    created = [创建 Adder 类型，base 为输入 base]
+    adder = created
+}
+
+fn initialize(base: i32) -> Adder [
+    base = [对象属性 base 的初始值]
+    return = [使用字段值初始化的加法对象]
+] {
+    adder: Adder = {
+        base: base,
+    }
+    adder
+}

@@ -1,0 +1,42 @@
+fn add_with_message(a: i32, b: i32) -> sum: i32, msg: string [
+    a = [第一个加数]
+    b = [第二个加数]
+    sum = [两个输入的和]
+    msg = [运算完成提示]
+] {
+    sum = a + b
+    msg = "加法完成"
+}
+
+fn add_named(a: i32, b: i32) -> sum: i32 [
+    a = [第一个加数]
+    b = [第二个加数]
+    sum = [两个输入的和]
+] {
+    sum = a + b
+}
+
+fn receive_results() -> i32 [
+    desc = [先声明变量接收结果，再用第二次调用更新变量]
+    return = [第二次加法得到的和]
+] {
+    total: i32, message: string = add_with_message(1, 2)
+    total, message = add_with_message(3, 4)
+    total
+}
+
+fn add_if_enabled(a: i32, b: i32, enabled: bool) -> sum: i32, msg: string [
+    a = [第一个加数]
+    b = [第二个加数]
+    enabled = [是否执行加法]
+    sum = [计算结果，未启用时为零]
+    msg = [处理结果说明]
+] {
+    sum = 0
+    msg = "未计算"
+    if !enabled {
+        return
+    }
+    sum = a + b
+    msg = "计算完成"
+}

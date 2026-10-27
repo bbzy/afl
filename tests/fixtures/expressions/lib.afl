@@ -1,0 +1,11 @@
+fn calculate(a: i32, b: i32) -> result: i32 [
+    a = [第一个输入值]
+    b = [第二个输入值]
+    result = [结合输入计算并按业务规则调整后的结果]
+] {
+    total: i32 = a + b * 2
+    result = total
+    if total < 0 || !(a == b) {
+        [根据业务规则调整 result]
+    }
+}

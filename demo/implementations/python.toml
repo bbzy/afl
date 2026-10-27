@@ -1,0 +1,13 @@
+[[implementation]]
+afl = "afl://counter/lib.afl#Counter"
+file = "native/counter.py"
+symbol = "Counter"
+line = 1
+end_line = 7
+
+[[implementation]]
+afl = "afl://counter/lib.afl#Counter.add"
+file = "native/counter.py"
+symbol = "Counter.add"
+line = 5
+end_line = 7

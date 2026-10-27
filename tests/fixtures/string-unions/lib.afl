@@ -1,0 +1,20 @@
+type Mode = "camera" | "image" | "video" [desc = [输入源模式]]
+
+fn select(mode: Mode) [mode = [需要使用的输入源]] {
+    when {
+        mode == "camera" -> {
+            [使用摄像头]
+        }
+        mode == "image" -> {
+            [使用静态图片]
+        }
+        else -> {
+            [使用视频文件]
+        }
+    }
+}
+
+fn example() {
+    mode: Mode = "camera"
+    select(mode)
+}

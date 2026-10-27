@@ -1,0 +1,12 @@
+use dep::core::lib::add
+
+fn addition_examples() [
+    desc = [验证 {@add} 处理正数、零和互为相反数的输入]
+] {
+    positive: i32 = add(2, 3)
+    zero: i32 = add(0, 0)
+    cancellation: i32 = add(-2, 2)
+    assert(positive == 5)
+    assert(zero == 0)
+    assert(cancellation == 0)
+}

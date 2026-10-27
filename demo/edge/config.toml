@@ -1,0 +1,7 @@
+preset_dir = "presets"
+
+[preset.android]
+core = ["core"]
+edge = ["android"]
+
+[project]

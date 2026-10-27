@@ -1,0 +1,8 @@
+fn add(`desc`: i32, `return`: i32) -> i32 [
+    desc = [将两个与文档关键字同名的参数相加]
+    `desc` = [第一个加数]
+    `return` = [第二个加数]
+    return = [两个参数的和]
+] {
+    `desc` + `return`
+}

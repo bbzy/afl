@@ -1,0 +1,57 @@
+class User [desc = [用户信息]] {
+    name: string [desc = [用户名称]]
+    nickname: string? [desc = [昵称，null 表示尚未设置]]
+}
+
+fn find_user(enabled: bool) -> user: User? [
+    enabled = [是否提供示例用户]
+    user = [找到的用户，未启用时为 null]
+] {
+    user = null
+    if !enabled {
+        return
+    }
+    user = {name: "Alice", nickname: null}
+}
+
+fn display_name(user: User?) -> string [
+    user = [待展示的用户，null 表示没有用户]
+    return = [优先显示昵称，其次为名称，没有用户时显示匿名用户]
+] {
+    if user == null {
+        return "匿名用户"
+    }
+    if user.nickname != null {
+        return user.nickname
+    }
+    user.name
+}
+
+fn optional_name() -> string? [
+    return = [尚未设置的名称]
+] {
+    null
+}
+
+fn nullable_collections() -> groups: map<string, list<User?>?>?, tags: set<string?> [
+    groups = [分组映射、组内列表和用户元素均可为空；空列表表示已有结果但没有成员]
+    tags = [标签集合，null 表示未分类]
+] {
+    groups = {
+        "known": {{name: "Alice", nickname: "A"}, null},
+        "empty": {},
+        "unavailable": null,
+    }
+    tags = {"active", null}
+}
+
+fn nullable_locals() [desc = [局部变量与 if 表达式沿用可空声明]] {
+    user: User? = if true {
+        find_user(true)
+    } else {
+        null
+    }
+    title: string = display_name(user)
+    payload: any? = null
+    [使用 title 展示页面，payload 暂时没有值]
+}

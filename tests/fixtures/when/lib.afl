@@ -1,0 +1,62 @@
+fn summarize(count: i32) -> string [
+    count = [数据数量]
+    return = [数量的文字说明]
+] {
+    when {
+        count == 0 -> {
+            "没有数据"
+        }
+        count < 10 -> {
+            "少量数据"
+        }
+        else -> {
+            "大量数据"
+        }
+    }
+}
+
+fn display(status: string) [status = [当前加载状态]] {
+    when {
+        status == "ready" -> {
+            [显示内容]
+        }
+        status == "failed" -> {
+            [展示错误及重试入口]
+        }
+        else -> {
+            [继续等待]
+        }
+    }
+}
+
+fn classify(count: i32) -> code: i32, message: string [
+    count = [数据数量]
+    code = [零表示空，一表示非空]
+    message = [状态文字]
+] {
+    code, message = when {
+        count == 0 -> {
+            0, "empty"
+        }
+        else -> {
+            1, "ready"
+        }
+    }
+}
+
+fn process(counts: list<i32>) [counts = [按顺序处理的数据数量，负数表示结束]] {
+    for count in counts {
+        when {
+            count < 0 -> {
+                break
+            }
+            count == 0 -> {
+                continue
+            }
+            else -> {
+                message: string = summarize(count)
+                [显示 message]
+            }
+        }
+    }
+}

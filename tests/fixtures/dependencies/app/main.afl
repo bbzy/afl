@@ -1,0 +1,7 @@
+use dep::core::lib::add_three
+use dep::core::math::add
+
+fn main() {
+    total: i32 = add(1, 2)
+    three_total: i32 = add_three(1, 2, 3)
+}

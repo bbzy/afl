@@ -1,0 +1,85 @@
+class BuiltinValues [
+    desc = [展示 AFL 支持的 16 种基础内置类型]
+] {
+    flag: bool [
+        desc = [布尔值]
+    ]
+
+    signed_8: i8 [
+        desc = [8 位有符号整数]
+    ]
+
+    signed_16: i16 [
+        desc = [16 位有符号整数]
+    ]
+
+    signed_32: i32 [
+        desc = [32 位有符号整数]
+    ]
+
+    signed_64: i64 [
+        desc = [64 位有符号整数]
+    ]
+
+    signed_128: i128 [
+        desc = [128 位有符号整数]
+    ]
+
+    unsigned_8: u8 [
+        desc = [8 位无符号整数]
+    ]
+
+    unsigned_16: u16 [
+        desc = [16 位无符号整数]
+    ]
+
+    unsigned_32: u32 [
+        desc = [32 位无符号整数]
+    ]
+
+    unsigned_64: u64 [
+        desc = [64 位无符号整数]
+    ]
+
+    unsigned_128: u128 [
+        desc = [128 位无符号整数]
+    ]
+
+    float_32: f32 [
+        desc = [32 位浮点数]
+    ]
+
+    float_64: f64 [
+        desc = [64 位浮点数]
+    ]
+
+    character: char [
+        desc = [单个 Unicode 标量值]
+    ]
+
+    text: string [
+        desc = [Unicode 文本]
+    ]
+
+    payload: any [
+        desc = [任意类型的值]
+    ]
+}
+
+fn invert(value: bool) -> result: bool [
+    value = [输入的布尔值]
+    result = [与输入相反的布尔值]
+] {
+    result = if value {
+        false
+    } else {
+        true
+    }
+}
+
+fn identity(value: any) -> result: any [
+    value = [传入的任意类型的值]
+    result = [原样返回的输入值]
+] {
+    result = value
+}

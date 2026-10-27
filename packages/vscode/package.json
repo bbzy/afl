@@ -1,0 +1,79 @@
+{
+  "name": "afl-vscode",
+  "publisher": "afl-local",
+  "license": "UNLICENSED",
+  "displayName": "AFL",
+  "icon": "assets/icon.png",
+  "description": "AFL shared business logic, implementation associations, diagnostics and navigation.",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./dist/extension.cjs",
+  "activationEvents": [
+    "onLanguage:afl",
+    "onCommand:afl.check",
+    "onCommand:afl.selectPreset",
+    "onCommand:afl.showLogs"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "afl",
+        "aliases": [
+          "AFL",
+          "afl"
+        ],
+        "extensions": [
+          ".afl"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "afl.check",
+        "title": "AFL: Check Project"
+      },
+      {
+        "command": "afl.selectPreset",
+        "title": "AFL: Select Preset"
+      },
+      {
+        "command": "afl.showLogs",
+        "title": "AFL: Show Logs"
+      },
+      {
+        "command": "afl.traceGeneration",
+        "title": "AFL: Trace Implementation"
+      },
+      {
+        "command": "afl.generationImpact",
+        "title": "AFL: Show Implementation Impact"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "afl",
+        "scopeName": "source.afl",
+        "path": "./syntaxes/afl.tmLanguage.json",
+        "unbalancedBracketScopes": [
+          "keyword.operator.relational.afl",
+          "storage.type.function.arrow.afl"
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "bundle": "node build.mjs"
+  },
+  "dependencies": {
+    "@afl/lsp": "0.1.0",
+    "vscode-languageclient": "9.0.1"
+  }
+}

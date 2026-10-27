@@ -1,0 +1,13 @@
+struct EffectInfo [desc = [与平台无关的效果数据契约]] {
+    name: string [desc = [效果名称]]
+    intensity: f32 = 1.0 [desc = [默认效果强度]]
+}
+
+struct Gift [desc = [礼物数据契约；序列化时保留字段名，缺失与 null 含义不同]] {
+    "gift-id": string [desc = [协议中的礼物标识，键名包含连字符]]
+    effect: EffectInfo [desc = [嵌套效果数据]]
+    note?: string? [desc = [可缺失，也可显式为空或提供说明文字]]
+    timeout_us: i64 = 10000 [desc = [超时时间，单位为微秒]]
+    tags: list<string> = {} [desc = [礼物标签，默认没有标签]]
+    variants: map<string, EffectInfo> = {} [desc = [以运行时字符串为键的效果变体]]
+}

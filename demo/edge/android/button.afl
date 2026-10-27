@@ -1,0 +1,18 @@
+impl dep::core::button::Button
+impl dep::core::button::create_button
+
+class Button [desc = [Android 按钮实现]] {
+    text: string [desc = [按钮文字]]
+    native_view: any [desc = [Android 按钮对象，初始为空]]
+    fn show(position: string) [position = [按钮位置描述]] {
+        [创建或复用 self.native_view，将文字设为 self.text，按 position 放置并显示]
+    }
+}
+
+fn create_button(label: string) -> Button [
+    label = [按钮文字]
+    return = [新按钮]
+] {
+    button: Button = [创建 Button，text 为 label，native_view 初始为空]
+    button
+}

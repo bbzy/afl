@@ -1,0 +1,22 @@
+const DEFAULT_LIMIT: i32 = 100 [desc = [默认计数上限]]
+
+class Counter [desc = [实例计数与共享计数]] {
+    const LIMIT: i32 = DEFAULT_LIMIT [desc = [计数上限]]
+    static total: i32 = 0 [desc = [所有实例共享的累计计数]]
+    value: i32 = 0 [desc = [当前实例的计数]]
+
+    fn increment() {
+        const step: i32 = 1
+        if self.value < Counter.LIMIT {
+            self.value = self.value + step
+            Counter.total = Counter.total + step
+        }
+    }
+}
+
+fn example() {
+    const counter: Counter = {}
+    counter.increment()
+    const snapshot: i32 = Counter.total
+    [使用 {@snapshot}；{@counter} 的绑定保持不变，其实例属性可以改变]
+}

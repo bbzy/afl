@@ -1,0 +1,14 @@
+use dep::android::lib::show_result
+
+fn result_updates() [
+    desc = [验证 Android 页面展示和更新结果的行为]
+] {
+    show_result(5)
+    [当前页面应显示 5]
+    show_result(8)
+    [原有结果区域应更新为 8，不应额外添加一个结果区域]
+}
+
+fn window_changes() [
+    desc = [结果显示后改变窗口大小，结果应保持可见且文字可读]
+]

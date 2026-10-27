@@ -1,0 +1,27 @@
+use model::Gift
+use model::EffectInfo
+
+fn create_gift() -> result: Gift [result = [一份礼物，省略 note 并沿用默认超时、标签和变体]] {
+    result = {"gift-id": "gift-001", effect: {name: "sparkle"}}
+}
+
+fn create_named_gift() -> result: Gift [result = [说明显式为空，提供标签和效果变体的礼物]] {
+    result = {
+        "gift-id": "gift-002",
+        effect: {name: "glow", intensity: 0.8},
+        note: null,
+        timeout_us: 20000,
+        tags: {"featured", "new"},
+        variants: {"celebration": {name: "confetti"}},
+    }
+}
+
+class GiftPresenter [desc = [礼物展示功能；数据形状由 Gift 和 EffectInfo 表达]] {
+    current: Gift? = null [desc = [当前展示的礼物]]
+
+    fn show(gift: Gift) [gift = [需要展示的礼物]] {
+        self.current = gift
+        effect: EffectInfo = gift.effect
+        [根据 effect 展示礼物；读取 gift 的 gift-id 字段用于关联界面状态]
+    }
+}

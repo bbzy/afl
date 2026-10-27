@@ -1,0 +1,37 @@
+fn max_statement(a: i32, b: i32) -> result: i32 [
+    a = [第一个值]
+    b = [第二个值]
+    result = [较大的值]
+] {
+    result = a
+    if (b > result) {
+        result = b
+    }
+}
+
+fn max_expression(a: i32, b: i32) -> x: i32 [
+    a = [第一个值]
+    b = [第二个值]
+    x = [较大的值]
+] {
+    x = if a > b {
+        a
+    } else {
+        b
+    }
+}
+
+fn compare(a: i32, b: i32) -> string [
+    a = [第一个值]
+    b = [第二个值]
+    return = [第一个值相对于第二个值的大小关系]
+] {
+    relation: string = if a > b {
+        "greater"
+    } else if b > a {
+        "less"
+    } else {
+        "equal"
+    }
+    relation
+}

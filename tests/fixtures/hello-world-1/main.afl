@@ -1,0 +1,3 @@
+fn main() [
+    desc = [该函数打印hello world]
+]

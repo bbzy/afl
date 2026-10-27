@@ -1,0 +1,79 @@
+struct Effect [desc = [平台无关的效果记录]] {
+    surface_id: i32 [desc = [效果所属的界面标识]]
+    name: string [desc = [效果名称]]
+}
+
+fn list_operations() {
+    numbers: list<i32> = {10, 20}
+    numbers.add(30)
+    numbers.insert(1, 15)
+    numbers.set(0, 5)
+    first: i32 = numbers.get(0)
+    size: i32 = numbers.len()
+    present: bool = numbers.contains(20)
+    position: i32? = numbers.index_of(20)
+    if position != null {
+        numbers.remove_at(position)
+    }
+    numbers.remove(15)
+    numbers.clear()
+}
+
+fn set_operations() {
+    names: set<string> = {"Alice", "Bob"}
+    names.add("Alice")
+    names.add("Carol")
+    present: bool = names.contains("Carol")
+    size: i32 = names.len()
+    names.remove("Bob")
+    names.remove("Missing")
+    names.clear()
+}
+
+fn map_operations() {
+    effects: map<string, Effect?> = {}
+    effects.set("active", {surface_id: 1, name: "Glow"})
+    effects.set("empty", null)
+    size: i32 = effects.len()
+    present: bool = effects.contains_key("empty")
+    effect: Effect? = effects.get("active")
+    if effect != null {
+        [显示 effect.name 对应的效果]
+    }
+    keys: list<string> = effects.keys()
+    values: list<Effect?> = effects.values()
+    [keys 和 values 是各自的快照，不能假定两个列表的下标一一对应]
+    for key, value in effects {
+        [记录 key 对应的效果 value]
+    }
+    effects.remove("active")
+    effects.clear()
+}
+
+fn release_surface(effects: list<Effect>, surface_id: i32) [
+    effects = [需要处理的效果列表]
+    surface_id = [需要释放的界面标识]
+] {
+    matches: list<Effect> = {}
+    for effect in effects {
+        if effect.surface_id == surface_id {
+            matches.add(effect)
+        }
+    }
+    for effect in matches {
+        [释放 effect 对应的资源]
+        effects.remove(effect)
+    }
+}
+
+fn store_callback(handlers: map<string, fn()>, name: string, callback: fn()) [
+    handlers = [按名称保存的回调]
+    name = [回调名称]
+    callback = [需要保存的回调]
+] {
+    handlers.set(name, callback)
+    handler: fn()? = handlers.get(name)
+    if handler != null {
+        handler()
+    }
+}

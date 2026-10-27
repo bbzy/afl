@@ -1,0 +1,1003 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "AFL",
+  "scopeName": "source.afl",
+  "patterns": [
+    {
+      "include": "#constant"
+    },
+    {
+      "include": "#unsupported"
+    },
+    {
+      "include": "#type-alias"
+    },
+    {
+      "include": "#import"
+    },
+    {
+      "include": "#class"
+    },
+    {
+      "include": "#struct"
+    },
+    {
+      "include": "#function"
+    },
+    {
+      "include": "#block"
+    },
+    {
+      "include": "#binding"
+    },
+    {
+      "include": "#assignment"
+    },
+    {
+      "include": "#expressions"
+    }
+  ],
+  "repository": {
+    "descriptions": {
+      "patterns": [
+        {
+          "include": "#raw-description"
+        },
+        {
+          "include": "#description"
+        }
+      ]
+    },
+    "raw-description": {
+      "name": "comment.block.documentation.raw.afl",
+      "begin": "\\br(#+)\\[",
+      "end": "\\]\\1",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.comment.begin.afl"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.comment.end.afl"
+        }
+      }
+    },
+    "description": {
+      "name": "comment.block.documentation.afl",
+      "begin": "\\[",
+      "end": "\\]",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.comment.begin.afl"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.comment.end.afl"
+        }
+      },
+      "patterns": [
+        {
+          "match": "\\\\[\\[\\]\\\\]",
+          "name": "constant.character.escape.afl"
+        },
+        {
+          "include": "#description-link"
+        },
+        {
+          "include": "#description"
+        }
+      ]
+    },
+    "documentation": {
+      "name": "meta.documentation.afl",
+      "begin": "\\[",
+      "end": "\\]",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.documentation.begin.afl"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.documentation.end.afl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#descriptions"
+        },
+        {
+          "match": "\\b(?:desc|return)\\b",
+          "name": "keyword.other.documentation.afl"
+        },
+        {
+          "match": "(?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*)",
+          "name": "entity.other.attribute-name.afl"
+        },
+        {
+          "match": "=",
+          "name": "keyword.operator.assignment.afl"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.raw.afl",
+          "begin": "\\br(#+)\"",
+          "end": "\"\\1",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.afl"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.afl"
+            }
+          }
+        },
+        {
+          "name": "string.quoted.double.afl",
+          "begin": "\"",
+          "end": "\"|(?=$)",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.afl"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.afl"
+            }
+          },
+          "patterns": [
+            {
+              "match": "\\\\[nrt0\\\\\"']",
+              "name": "constant.character.escape.afl"
+            },
+            {
+              "match": "\\\\.",
+              "name": "invalid.illegal.escape.afl"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.afl",
+          "begin": "'",
+          "end": "'|(?=$)",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin.afl"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end.afl"
+            }
+          },
+          "patterns": [
+            {
+              "match": "\\\\[nrt0\\\\\"']",
+              "name": "constant.character.escape.afl"
+            },
+            {
+              "match": "\\\\.",
+              "name": "invalid.illegal.escape.afl"
+            }
+          ]
+        }
+      ]
+    },
+    "builtin-types": {
+      "patterns": [
+        {
+          "match": "\\b(?:bool|[iu](?:8|16|32|64|128)|f(?:32|64)|char|string|any|list|set|map)\\b",
+          "name": "support.type.primitive.afl"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "begin": "\\b(fn)\\s*(\\()",
+          "end": "\\)",
+          "beginCaptures": {
+            "1": {
+              "name": "storage.type.function.afl"
+            },
+            "2": {
+              "name": "punctuation.definition.parameters.begin.afl"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.parameters.end.afl"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#types"
+            },
+            {
+              "match": ",",
+              "name": "punctuation.separator.comma.afl"
+            }
+          ]
+        },
+        {
+          "begin": "\\(",
+          "end": "\\)",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.group.begin.afl"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.group.end.afl"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#types"
+            },
+            {
+              "match": ",",
+              "name": "punctuation.separator.comma.afl"
+            }
+          ]
+        },
+        {
+          "match": "->",
+          "name": "storage.type.function.arrow.afl"
+        },
+        {
+          "match": "\\?",
+          "name": "keyword.operator.type.nullable.afl"
+        },
+        {
+          "include": "#builtin-types"
+        },
+        {
+          "match": "(?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*)",
+          "name": "entity.name.type.afl"
+        },
+        {
+          "begin": "<",
+          "end": ">",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.typeparameters.begin.afl"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.typeparameters.end.afl"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#types"
+            },
+            {
+              "match": ",",
+              "name": "punctuation.separator.comma.afl"
+            }
+          ]
+        }
+      ]
+    },
+    "signature-items": {
+      "patterns": [
+        {
+          "match": "(?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*)(?=\\s*:(?!:))",
+          "name": "variable.parameter.afl"
+        },
+        {
+          "include": "#types"
+        },
+        {
+          "match": ":",
+          "name": "punctuation.separator.type.afl"
+        },
+        {
+          "match": ",",
+          "name": "punctuation.separator.comma.afl"
+        }
+      ]
+    },
+    "function": {
+      "name": "meta.function.afl",
+      "begin": "\\b(fn)\\s+((?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*))",
+      "beginCaptures": {
+        "1": {
+          "name": "storage.type.function.afl"
+        },
+        "2": {
+          "name": "entity.name.function.afl"
+        }
+      },
+      "end": "(?<=\\])|(?=[{}])|(?=^\\s*(?:extern|fn(?!\\s*\\()|class|struct|use|impl)\\b)",
+      "patterns": [
+        {
+          "name": "meta.parameters.afl",
+          "begin": "\\(",
+          "end": "\\)",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.parameters.begin.afl"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.parameters.end.afl"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#signature-items"
+            }
+          ]
+        },
+        {
+          "name": "meta.return-type.afl",
+          "begin": "->",
+          "end": "(?=[\\[{}])|(?=^\\s*(?:extern|fn(?!\\s*\\()|class|struct|use|impl)\\b)",
+          "beginCaptures": {
+            "0": {
+              "name": "storage.type.function.arrow.afl"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#signature-items"
+            }
+          ]
+        },
+        {
+          "include": "#documentation"
+        }
+      ]
+    },
+    "class": {
+      "name": "meta.class.afl",
+      "begin": "\\b(class)\\s+((?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*))",
+      "beginCaptures": {
+        "1": {
+          "name": "storage.type.class.afl"
+        },
+        "2": {
+          "name": "entity.name.type.class.afl"
+        }
+      },
+      "end": "(?<=\\})|(?=^\\s*(?:extern\\s+)?class\\b)",
+      "patterns": [
+        {
+          "include": "#documentation"
+        },
+        {
+          "name": "meta.class.body.afl",
+          "begin": "\\{",
+          "end": "\\}",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.block.begin.afl"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.block.end.afl"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#constant"
+            },
+            {
+              "include": "#function"
+            },
+            {
+              "include": "#property"
+            },
+            {
+              "include": "#block"
+            },
+            {
+              "include": "#expressions"
+            }
+          ]
+        }
+      ]
+    },
+    "property": {
+      "name": "meta.property.afl",
+      "begin": "((?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*))\\s*(:)(?!:)",
+      "beginCaptures": {
+        "1": {
+          "name": "variable.other.property.afl"
+        },
+        "2": {
+          "name": "punctuation.separator.type.afl"
+        }
+      },
+      "end": "(?=\\})|(?=^\\s*(?:(?:extern|fn|const|static)\\b|(?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*)\\s*:(?!:)))",
+      "patterns": [
+        {
+          "name": "meta.property.default.afl",
+          "begin": "=(?=\\s*(?:\\[|r#+\\[))",
+          "end": "(?<=\\])|(?<=#)",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.operator.assignment.afl"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#descriptions"
+            }
+          ]
+        },
+        {
+          "name": "meta.property.default.afl",
+          "begin": "=(?!=)",
+          "end": "(?=[\\[}])|(?=^\\s*(?:(?:extern|fn|const|static)\\b|(?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*)\\s*:(?!:)))",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.operator.assignment.afl"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#initializer"
+            },
+            {
+              "include": "#expressions"
+            }
+          ]
+        },
+        {
+          "include": "#documentation"
+        },
+        {
+          "include": "#types"
+        }
+      ]
+    },
+    "import": {
+      "name": "meta.import.afl",
+      "begin": "\\b(?:use|impl)\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.import.afl"
+        }
+      },
+      "end": "$",
+      "patterns": [
+        {
+          "name": "meta.import.group.afl",
+          "begin": "\\{",
+          "end": "\\}",
+          "patterns": [
+            {
+              "include": "#import-items"
+            },
+            {
+              "match": ",",
+              "name": "punctuation.separator.comma.afl"
+            }
+          ]
+        },
+        {
+          "include": "#import-items"
+        }
+      ]
+    },
+    "binding": {
+      "name": "meta.variable.afl",
+      "begin": "((?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*))\\s*(:)(?!:)",
+      "beginCaptures": {
+        "1": {
+          "name": "variable.other.readwrite.afl"
+        },
+        "2": {
+          "name": "punctuation.separator.type.afl"
+        }
+      },
+      "end": "(?=[=,)}\\[\\]]|$)",
+      "patterns": [
+        {
+          "include": "#types"
+        }
+      ]
+    },
+    "assignment": {
+      "begin": "(?<![=!<>])=(?!=)",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.operator.assignment.afl"
+        }
+      },
+      "end": "(?=$|\\})",
+      "patterns": [
+        {
+          "include": "#initializer"
+        },
+        {
+          "include": "#expressions"
+        }
+      ]
+    },
+    "initializer": {
+      "name": "meta.initializer.afl",
+      "begin": "\\{",
+      "end": "\\}",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.block.begin.afl"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.block.end.afl"
+        }
+      },
+      "patterns": [
+        {
+          "match": "(?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*)(?=\\s*:(?!:))",
+          "name": "variable.other.property.afl"
+        },
+        {
+          "include": "#initializer"
+        },
+        {
+          "include": "#expressions"
+        }
+      ]
+    },
+    "return-initializer": {
+      "name": "meta.return.initializer.afl",
+      "begin": "\\b(return)\\s*(?=\\{)",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control.afl"
+        }
+      },
+      "end": "(?<=\\})",
+      "patterns": [
+        {
+          "include": "#initializer"
+        }
+      ]
+    },
+    "block": {
+      "name": "meta.block.afl",
+      "begin": "\\{",
+      "end": "\\}",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.block.begin.afl"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.block.end.afl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#return-initializer"
+        },
+        {
+          "include": "#binding"
+        },
+        {
+          "include": "#assignment"
+        },
+        {
+          "include": "#block"
+        },
+        {
+          "include": "#expressions"
+        }
+      ]
+    },
+    "expressions": {
+      "patterns": [
+        {
+          "include": "#descriptions"
+        },
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#when"
+        },
+        {
+          "match": "(?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*)(?=\\s*\\()",
+          "name": "entity.name.function.afl"
+        },
+        {
+          "match": "(\\.)((?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*))(?=\\s*\\()",
+          "captures": {
+            "1": {
+              "name": "punctuation.accessor.afl"
+            },
+            "2": {
+              "name": "entity.name.function.afl"
+            }
+          }
+        },
+        {
+          "match": "(\\.)((?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*))",
+          "captures": {
+            "1": {
+              "name": "punctuation.accessor.afl"
+            },
+            "2": {
+              "name": "variable.other.property.afl"
+            }
+          }
+        },
+        {
+          "match": "`[A-Za-z_][A-Za-z_0-9]*`",
+          "name": "variable.other.readwrite.afl"
+        },
+        {
+          "match": "\\b(?:true|false)\\b",
+          "name": "constant.language.boolean.afl"
+        },
+        {
+          "match": "\\bnull\\b",
+          "name": "constant.language.null.afl"
+        },
+        {
+          "match": "\\bself\\b",
+          "name": "variable.language.this.afl"
+        },
+        {
+          "match": "\\b(?:if|else|while|for|in|break|continue|return)\\b",
+          "name": "keyword.control.afl"
+        },
+        {
+          "match": "\\b(?:extern|static|const)\\b",
+          "name": "storage.modifier.afl"
+        },
+        {
+          "include": "#builtin-types"
+        },
+        {
+          "match": "\\b[0-9]+(?:\\.[0-9]+)?\\b",
+          "name": "constant.numeric.afl"
+        },
+        {
+          "match": "->",
+          "name": "storage.type.function.arrow.afl"
+        },
+        {
+          "match": "==|!=|<=|>=|<|>",
+          "name": "keyword.operator.relational.afl"
+        },
+        {
+          "match": "&&|\\|\\||!",
+          "name": "keyword.operator.logical.afl"
+        },
+        {
+          "match": "[+*/%=-]",
+          "name": "keyword.operator.arithmetic.afl"
+        },
+        {
+          "match": "::|\\.",
+          "name": "punctuation.accessor.afl"
+        },
+        {
+          "match": "[:,]",
+          "name": "punctuation.separator.afl"
+        },
+        {
+          "begin": "\\(",
+          "end": "\\)",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.group.begin.afl"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.group.end.afl"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#initializer"
+            },
+            {
+              "include": "#expressions"
+            }
+          ]
+        },
+        {
+          "match": "[A-Za-z_][A-Za-z_0-9]*",
+          "name": "variable.other.readwrite.afl"
+        }
+      ]
+    },
+    "struct": {
+      "name": "meta.struct.afl",
+      "begin": "\\b(struct)\\s+((?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*))",
+      "beginCaptures": {
+        "1": {
+          "name": "storage.type.struct.afl"
+        },
+        "2": {
+          "name": "entity.name.type.struct.afl"
+        }
+      },
+      "end": "(?<=\\})|(?=^\\s*(?:extern\\s+)?(?:class|struct)\\b)",
+      "patterns": [
+        {
+          "include": "#documentation"
+        },
+        {
+          "name": "meta.struct.body.afl",
+          "begin": "\\{",
+          "end": "\\}",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.block.begin.afl"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.block.end.afl"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#strings"
+            },
+            {
+              "match": "(?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*)(?=\\s*\\??\\s*:(?!:))",
+              "name": "variable.other.property.afl"
+            },
+            {
+              "match": "\\?",
+              "name": "keyword.operator.field.optional.afl"
+            },
+            {
+              "include": "#struct-field-type"
+            },
+            {
+              "include": "#expressions"
+            }
+          ]
+        }
+      ]
+    },
+    "struct-field-type": {
+      "name": "meta.property.afl",
+      "begin": "(:)(?!:)",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.separator.type.afl"
+        }
+      },
+      "end": "(?=\\})|(?=^\\s*(?:(?:extern|fn|class|struct)\\b|(?:(?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*)\\s*\\??\\s*:(?!:)|\"|r#+\")))",
+      "patterns": [
+        {
+          "name": "meta.property.default.afl",
+          "begin": "=(?=\\s*(?:\\[|r#+\\[))",
+          "end": "(?<=\\])|(?<=#)",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.operator.assignment.afl"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#descriptions"
+            }
+          ]
+        },
+        {
+          "name": "meta.property.default.afl",
+          "begin": "=(?!=)",
+          "end": "(?=[\\[}])|(?=\\})|(?=^\\s*(?:(?:extern|fn|class|struct)\\b|(?:(?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*)\\s*\\??\\s*:(?!:)|\"|r#+\")))",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.operator.assignment.afl"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#initializer"
+            },
+            {
+              "include": "#expressions"
+            }
+          ]
+        },
+        {
+          "include": "#documentation"
+        },
+        {
+          "include": "#types"
+        }
+      ]
+    },
+    "when": {
+      "name": "meta.conditional.when.afl",
+      "begin": "\\bwhen\\b",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.afl"
+        }
+      },
+      "end": "(?<=\\})",
+      "patterns": [
+        {
+          "begin": "\\{",
+          "end": "\\}",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.block.begin.afl"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.block.end.afl"
+            }
+          },
+          "patterns": [
+            {
+              "match": "->",
+              "name": "keyword.operator.branch.afl"
+            },
+            {
+              "include": "#block"
+            },
+            {
+              "include": "#expressions"
+            }
+          ]
+        }
+      ]
+    },
+    "description-link": {
+      "name": "meta.link.afl",
+      "contentName": "markup.underline.link.afl",
+      "begin": "\\{@",
+      "end": "\\}|(?=\\[|\\]|\\r?$|\\{@)",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.link.begin.afl"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.link.end.afl"
+        }
+      }
+    },
+    "type-alias": {
+      "begin": "\\b(type)\\s+(`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*)",
+      "end": "(?=^\\s*(?:fn|class|struct|type|extern|use|impl|unsupported)\\b)|(?<=\\])",
+      "beginCaptures": {
+        "1": {
+          "name": "storage.type.afl"
+        },
+        "2": {
+          "name": "entity.name.type.afl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#strings"
+        },
+        {
+          "include": "#documentation"
+        },
+        {
+          "match": "[=|]",
+          "name": "keyword.operator.type.afl"
+        }
+      ]
+    },
+    "import-items": {
+      "patterns": [
+        {
+          "match": "\\b(?:crate|dep)\\b",
+          "name": "keyword.other.module.afl"
+        },
+        {
+          "match": "\\bas\\b",
+          "name": "keyword.control.import.afl"
+        },
+        {
+          "match": "::",
+          "name": "punctuation.accessor.afl"
+        },
+        {
+          "match": "(?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*)",
+          "name": "entity.name.type.module.afl"
+        }
+      ]
+    },
+    "unsupported": {
+      "begin": "\\bunsupported\\b",
+      "end": "(?<=\\])|(?=^\\s*(?:fn|class|struct|type|extern|use|impl|unsupported)\\b)",
+      "beginCaptures": {
+        "0": {
+          "name": "keyword.control.import.afl"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#documentation"
+        },
+        {
+          "include": "#import-items"
+        }
+      ]
+    },
+    "constant": {
+      "name": "meta.constant.afl",
+      "begin": "\\b(const)\\s+((?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*))\\s*(:)(?!:)",
+      "beginCaptures": {
+        "1": {
+          "name": "storage.modifier.afl"
+        },
+        "2": {
+          "name": "variable.other.constant.afl"
+        },
+        "3": {
+          "name": "punctuation.separator.type.afl"
+        }
+      },
+      "end": "(?=\\})|(?=^\\s*(?:(?:extern|fn|const|static|class|struct|type|use|impl|unsupported)\\b|(?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*)\\s*:(?!:)))",
+      "patterns": [
+        {
+          "name": "meta.property.default.afl",
+          "begin": "=(?=\\s*(?:\\[|r#+\\[))",
+          "end": "(?<=\\])|(?<=#)",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.operator.assignment.afl"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#descriptions"
+            }
+          ]
+        },
+        {
+          "name": "meta.property.default.afl",
+          "begin": "=(?!=)",
+          "end": "(?=[\\[}])|(?=^\\s*(?:(?:extern|fn|const|static|class|struct|type|use|impl|unsupported)\\b|(?:`[A-Za-z_][A-Za-z_0-9]*`|[A-Za-z_][A-Za-z_0-9]*)\\s*:(?!:)))",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.operator.assignment.afl"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#initializer"
+            },
+            {
+              "include": "#expressions"
+            }
+          ]
+        },
+        {
+          "include": "#documentation"
+        },
+        {
+          "include": "#types"
+        }
+      ]
+    }
+  }
+}

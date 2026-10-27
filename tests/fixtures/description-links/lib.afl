@@ -1,0 +1,18 @@
+struct Result [desc = [结果契约，数值见 {@Result.value}]] {
+    value: i32 = 0 [desc = [使用 {@i32} 表示结果]]
+}
+
+fn calculate(input: i32) -> output: Result [
+    desc = [把 {@input} 转成 {@output}，结构见 {@Result}]
+    input = [输入值]
+    output = [结果对象]
+] {
+    output = {value: input}
+    [按照业务规则调整 {@output.value}]
+}
+
+fn example() {
+    result: Result = calculate(10)
+    [复核 {@result.value}；计算过程见 {@crate::lib::calculate}]
+    r#[这里的 {@anything} 只是原始文字，不会查找符号]#
+}

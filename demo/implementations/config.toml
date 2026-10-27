@@ -1,0 +1,11 @@
+[project]
+
+[preset.kotlin]
+core = ["shared"]
+edge = []
+implementations = "kotlin.toml"
+
+[preset.python]
+core = ["shared"]
+edge = []
+implementations = "python.toml"

@@ -1,0 +1,31 @@
+fn format_text(text: string) -> result: string [
+    desc = [
+        为 text 添加标记 [processed]。
+        在末尾依次添加字符 \]、\[ 和 \\。
+        最后添加字面文本 \n。
+    ]
+    text = [待处理的文本]
+    result = [添加标记和字符后的文本]
+] {
+    result = text
+    [在 result 前加上标记 [processed]]
+    [在 result 末尾依次追加 \]、\[ 和 \\]
+    [在 result 末尾追加字面文本 \n]
+}
+
+fn format_text_raw(text: string) -> result: string [
+    desc = r#[
+        为 text 添加标记 [processed]。
+        在末尾依次添加字符 ]、[ 和 \。
+        最后添加字面文本 \n。
+    ]#
+    text = r#[待处理的文本]#
+    result = r#[添加标记和字符后的文本]#
+] {
+    result = text
+    r#[在 result 前加上标记 [processed]。]#
+    r#[
+        在 result 末尾依次追加 ]、[ 和 \。
+        再追加字面文本 \n。
+    ]#
+}

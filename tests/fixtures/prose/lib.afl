@@ -1,0 +1,8 @@
+fn normalize(value: i32) -> i32 [
+    value = [待处理的整数]
+    return = [处理后的非负整数]
+] {
+    result: i32 = value
+    [把result变为非负数]
+    result
+}

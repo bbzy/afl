@@ -1,0 +1,13 @@
+extern class Button [desc = [可显示的按钮]] {
+    text: string [desc = [按钮文字]]
+    fn show(position: string) [
+        desc = [在指定位置显示按钮]
+        position = [按钮位置描述]
+    ]
+}
+
+extern fn create_button(label: string) -> Button [
+    desc = [创建尚未显示的按钮]
+    label = [按钮文字]
+    return = [新按钮]
+]

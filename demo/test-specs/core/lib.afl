@@ -1,0 +1,12 @@
+fn add(a: i32, b: i32) -> sum: i32 [
+    a = [第一个加数]
+    b = [第二个加数]
+    sum = [两个输入的和]
+] {
+    sum = a + b
+}
+
+extern fn show_result(value: i32) [
+    desc = [在当前页面显示结果，再次调用时更新显示内容]
+    value = [要显示的结果]
+]

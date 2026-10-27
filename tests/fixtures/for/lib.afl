@@ -1,0 +1,56 @@
+struct Item [desc = [需要处理的一项数据]] {
+    name: string [desc = [名称]]
+    enabled: bool = true [desc = [是否启用]]
+}
+
+fn load_items() -> list<Item> [
+    desc = [取得待处理数据]
+    return = [按处理顺序排列的数据]
+]
+
+fn sum(numbers: list<i32>) -> total: i32 [
+    numbers = [需要求和的数字]
+    total = [数字之和，空列表为零]
+] {
+    total = 0
+    for number in numbers {
+        total = total + number
+    }
+}
+
+fn process_items() {
+    for item in load_items() {
+        if !item.enabled {
+            continue
+        }
+        [处理 item 指定的内容]
+    }
+}
+
+fn show_numbered_items() {
+    for index, item in load_items() {
+        if !item.enabled {
+            continue
+        }
+        position: i32 = index + 1
+        [在第 position 个位置展示 item 的名称，跳过未启用的项时保留原列表对应的位置]
+    }
+}
+
+fn process_groups(groups: map<string, list<Item>>, names: set<string>) [
+    groups = [按动态名称分组的数据]
+    names = [需要记录的唯一名称]
+] {
+    for key, items in groups {
+        [记录 key 所指的分组]
+        for item in items {
+            if !item.enabled {
+                break
+            }
+            [处理当前分组中的 item]
+        }
+    }
+    for name in names {
+        [记录 name]
+    }
+}

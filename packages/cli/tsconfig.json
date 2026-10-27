@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist/types",
+    "tsBuildInfoFile": "dist/cli.tsbuildinfo",
+    "emitDeclarationOnly": true,
+    "resolveJsonModule": true,
+    "types": ["node"]
+  },
+  "include": ["src/**/*.ts", "package.json"],
+  "references": [
+    {
+      "path": "../checker"
+    }
+  ]
+}

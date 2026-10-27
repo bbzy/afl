@@ -1,0 +1,22 @@
+{
+  "name": "@afl/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "afl": "./bin/afl.mjs"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "bundle": "esbuild src/main.ts --bundle --platform=node --target=node22 --format=esm --outfile=dist/afl.js --sourcemap"
+  },
+  "dependencies": {
+    "@afl/checker": "0.1.0"
+  }
+}

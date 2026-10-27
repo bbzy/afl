@@ -1,0 +1,24 @@
+{
+  "name": "@afl/lsp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "afl-lsp": "./bin/afl-lsp.mjs"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "bundle": "esbuild src/server.ts --bundle --platform=node --target=node20 --format=cjs --outfile=dist/server.cjs --sourcemap"
+  },
+  "dependencies": {
+    "@afl/checker": "0.1.0",
+    "vscode-languageserver": "9.0.1",
+    "vscode-languageserver-textdocument": "1.0.13"
+  }
+}

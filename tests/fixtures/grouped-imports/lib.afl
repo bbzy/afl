@@ -1,0 +1,11 @@
+use crate::frames::{
+    NativeFrame,
+    FrameSource as Source,
+}
+
+fn process(frame: NativeFrame, source: Source) [
+    frame = [待处理帧]
+    source = [帧来源]
+] {
+    [根据 {@source} 处理 {@frame}]
+}

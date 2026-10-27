@@ -1,0 +1,16 @@
+fn fit_size_within(width: f64, height: f64, limit: f64) -> scale: f64 [
+    width = [原始宽度]
+    height = [原始高度]
+    limit = [最大宽高]
+    scale = [保持比例的缩放值]
+] {
+    scale = min(limit / width, limit / height)
+}
+
+fn fps(count: i64, cost_ms: i64) -> result: i64 [
+    count = [帧数]
+    cost_ms = [正数耗时，单位毫秒]
+    result = [四舍五入后的帧率]
+] {
+    result = to_int(round(count * 1000 / cost_ms))
+}

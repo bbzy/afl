@@ -1,0 +1,7 @@
+impl dep::core::lib::show_result
+
+fn show_result(value: i32) [
+    desc = [实现 {@dep::core::lib::show_result} 的显示契约]
+] {
+    [使用 Android 的界面组件显示 {@value}，再次调用时更新原有结果区域]
+}

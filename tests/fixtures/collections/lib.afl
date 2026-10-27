@@ -1,0 +1,73 @@
+use user::User
+
+class CollectionValues [
+    desc = [展示内置集合类型、嵌套类型及自定义元素类型]
+] {
+    numbers: list<i32> [
+        desc = [有序且允许重复的整数列表]
+    ]
+
+    unique_names: set<string> [
+        desc = [不重复的名称集合，不规定遍历顺序]
+    ]
+
+    counts: map<string, i32> [
+        desc = [名称到计数的映射，键唯一且不规定遍历顺序]
+    ]
+
+    items: list<any> [
+        desc = [元素可以是任意类型的列表]
+    ]
+
+    rows: list<list<i32>> [
+        desc = [每个元素都是整数列表的有序列表]
+    ]
+
+    attributes: map<string, any> [
+        desc = [字符串键到任意类型值的映射]
+    ]
+
+    groups: map<string, list<User>> [
+        desc = [名称到用户列表的映射，User 定义在 user 模块中]
+    ]
+
+    data: list<u8> [
+        desc = [二进制数据的字节列表]
+    ]
+}
+
+fn group_users(users: list<User>) -> groups: map<string, list<User>> [
+    desc = [按照用户名称对输入用户分组，保留各组内的输入顺序]
+    users = [待分组的用户列表]
+    groups = [用户名称到该名称下全部用户的映射]
+] {
+    groups = r#[按照用户名称将 users 分组，并保留各组内的输入顺序]#
+}
+
+fn initialize_collections() -> values: CollectionValues [
+    values = [包含三种集合、嵌套集合及嵌套用户对象的初始化结果]
+] {
+    values = {
+        numbers: {1, 2, 2},
+        unique_names: {"Alice", "Bob"},
+        counts: {"Alice": 2, "Bob": 1},
+        items: {1, "hello", true},
+        rows: {{1, 2}, {3, 4}},
+        attributes: {"enabled": true, "label": "sample"},
+        groups: {
+            "Alice": {{name: "Alice"}, {name: "Alice"}},
+            "Bob": {{name: "Bob"}},
+        },
+        data: {0, 127, 255},
+    }
+}
+
+fn empty_collections() -> numbers: list<i32>, names: set<string>, counts: map<string, i32> [
+    numbers = [空的整数列表]
+    names = [空的名称集合]
+    counts = [空的名称到计数的映射]
+] {
+    numbers = {}
+    names = {}
+    counts = {}
+}

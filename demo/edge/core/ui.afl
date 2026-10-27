@@ -1,0 +1,5 @@
+extern fn show_button(label: string, position: string) [
+    desc = [在当前页面的指定位置显示一个按钮]
+    label = [按钮上显示的文字]
+    position = [按钮在页面中的位置描述，空字符串表示页面底部居中]
+]

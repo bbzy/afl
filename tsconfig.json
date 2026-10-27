@@ -1,0 +1,17 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/checker"
+    },
+    {
+      "path": "./packages/cli"
+    },
+    {
+      "path": "./packages/lsp"
+    },
+    {
+      "path": "./packages/vscode"
+    }
+  ]
+}

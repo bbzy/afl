@@ -1,0 +1,4 @@
+unsupported dep::core::lib::ControlPanel [
+    desc = [OHOS 示例工程不提供交互面板，契约见 {@dep::core::lib::ControlPanel}]
+    fallback = [不创建面板及注册面板回调，使用默认参数继续处理；用户不能在运行中调整参数]
+]

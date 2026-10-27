@@ -1,0 +1,7 @@
+class User [
+    desc = [集合中的用户信息]
+] {
+    name: string [
+        desc = [用户名称]
+    ]
+}

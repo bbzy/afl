@@ -1,0 +1,56 @@
+extern fn show_button(label: string, on_click: fn()) [
+    desc = [显示按钮，用户点击时调用 on_click]
+    label = [按钮文字]
+    on_click = [点击后执行的操作，无输入和返回值]
+]
+
+fn save() {
+    [保存当前编辑内容]
+}
+
+fn increment(value: i32) -> i32 [
+    value = [原始数值]
+    return = [增加一后的数值]
+] {
+    value + 1
+}
+
+fn apply(value: i32, transform: fn(i32) -> i32) -> i32 [
+    value = [要处理的数值]
+    transform = [接收原始数值，返回处理后的数值]
+    return = [调用 transform 得到的结果]
+] {
+    transform(value)
+}
+
+fn create_handler() -> fn() [
+    return = [执行保存的回调]
+] {
+    save
+}
+
+fn status() -> count: i32, message: string [
+    count = [已保存的条目数]
+    message = [保存状态说明]
+] {
+    count = 1
+    message = "已保存"
+}
+
+class Actions [desc = [页面的交互行为]] {
+    on_save: fn() [desc = [执行保存，无输入和返回值]]
+}
+
+fn configure() {
+    show_button("保存", save)
+    actions: Actions = {on_save: create_handler()}
+    actions.on_save()
+    value: i32 = apply(10, increment)
+    handler: fn() = [创建回调，点击时保存当前编辑内容]
+    show_button("保存编辑", handler)
+    handlers: list<fn()?> = {save, null}
+    read_status: fn() -> (i32, string) = status
+    count: i32, message: string = read_status()
+    optional_transform: (fn(i32) -> i32)? = null
+    [按页面需要使用 value、handlers、count 和 message；optional_transform 尚未设置]
+}

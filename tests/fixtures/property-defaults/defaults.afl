@@ -1,0 +1,9 @@
+fn default_retries() -> i32 [
+    return = [默认重试次数]
+] {
+    3
+}
+
+fn notify() {
+    [记录本次操作完成]
+}

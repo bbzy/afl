@@ -1,0 +1,32 @@
+class TextConfig [desc = r#[程序需要保留的文本常量与模式]#] {
+    pattern: string = r#"\d+\.\d+"# [desc = [版本号匹配模式]]
+    json: string = r#"{"name": "demo", "path": "C:\temp"}"# [
+        desc = [默认的 JSON 配置文本]
+    ]
+    template: string = r#"<button>
+    保存
+</button>"# [desc = [保留实际换行与缩进的模板]]
+    marker: string = r##"包含 "# 的文本"## [
+        desc = r##[内容需要包含 ]# 时增加结束符中的井号数量]##
+    ]
+}
+
+extern fn display(text: string) [
+    desc = [显示给定的文本]
+    text = [需要展示的确定文本内容]
+]
+
+fn sample() -> string [
+    return = [包含反斜杠和引号的固定文本]
+] {
+    r#"line\n"quoted""#
+}
+
+fn present() {
+    config: TextConfig = {}
+    display(config.template)
+    display(r#"字符串里的 [括号]、, 和 ) 都是文本"#)
+    labels: map<string, string> = {r#"key"#: r#"value"#}
+    context = r#[创建展示上下文，描述中允许孤立的 [、] 和 \]#
+    r##[通过上下文展示内容。此处可以直接写 ]#，以及 r#"示例"#。]##
+}

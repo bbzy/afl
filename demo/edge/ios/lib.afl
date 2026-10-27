@@ -1,0 +1,13 @@
+impl dep::core::ui::show_button
+
+fn show_button(label: string, position: string) [
+    label = [按钮文字]
+    position = [按钮在页面中的位置描述，空字符串表示页面底部居中]
+] {
+    [使用 UIKit 创建 UIButton，设置文字为 label]
+    if position == "" {
+        [在当前页面底部居中放置按钮并显示]
+    } else {
+        [按 position 放置按钮并显示]
+    }
+}
