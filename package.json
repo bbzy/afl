@@ -17,7 +17,7 @@
     "test:package": "nu --no-config-file tests/release/package.nu",
     "test:e2e": "npm run package && nu --no-config-file tests/vscode/vscode-e2e.nu",
     "release": "npm test && node scripts/package.mjs && npm run test:package && nu --no-config-file tests/vscode/vscode-e2e.nu",
-    "typecheck": "tsc --build",
+    "typecheck": "tsc --build && tsc -p tests",
     "build": "npm run typecheck && npm run bundle --workspaces --if-present",
     "afl": "node packages/cli/bin/afl.mjs",
     "afl-lsp": "node packages/lsp/bin/afl-lsp.mjs",
